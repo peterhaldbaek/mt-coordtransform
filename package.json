@@ -1,0 +1,32 @@
+{
+  "name": "mt-coordtransform",
+  "version": "0.0.1",
+  "description": "Coordinate transformations between latitude/longitude WGS84 and OSGB36.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peterhaldbaek/mt-coordtransform.git"
+  },
+  "keywords": [
+    "osgb36",
+    "wgs84",
+    "coordinate",
+    "transformation",
+    "latitude",
+    "longitude",
+    "ordnance",
+    "survey"
+  ],
+  "author": "Peter Haldbæk <peter.haldbaek@gmail.com>",
+  "contributors": [
+    "Peter Haldbæk <peter.haldbaek@gmail.com> (https://github.com/peterhaldbaek)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peterhaldbaek/mt-coordtransform/issues"
+  },
+  "homepage": "https://github.com/peterhaldbaek/mt-coordtransform",
+  "dependencies": {
+    "mt-latlon": "0.0.3"
+  }
+}
