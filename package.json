@@ -1,6 +1,6 @@
 {
   "name": "mt-coordtransform",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Coordinate transformations between latitude/longitude WGS84 and OSGB36.",
   "main": "index.js",
   "repository": {
