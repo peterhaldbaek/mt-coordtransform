@@ -27,6 +27,6 @@
   },
   "homepage": "https://github.com/peterhaldbaek/mt-coordtransform",
   "dependencies": {
-    "mt-latlon": "0.0.3"
+    "mt-latlon": "0.1.0"
   }
 }

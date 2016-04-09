@@ -7,7 +7,9 @@ Coordinate transformations between latitude/longitude WGS84 and OSGB36.
 Installation
 ------------
 
-    $ npm install mt-coordtransform
+```sh
+$ npm install mt-coordtransform
+```
 
 
 Usage
@@ -15,11 +17,13 @@ Usage
 
 The module contains methods for transforming latitude/longitude coordinates between WGS84 (generally used by GPS systems or any world-wide reference system) and OSGB36 (used in all Ordnance Survey mapping). 
 
-    var LatLon = require('mt-latlon');
-    var CoordTransform = require('mt-coordtransform');
+```js
+var LatLon = require('mt-latlon');
+var CoordTransform = require('mt-coordtransform');
 
-    var pointWGS84 = new LatLon(51.5136, 0.0);
-    var pointOSGB36 = CoordTransform.convertWGS84toOSGB36(pointWGS84);
+var pointWGS84 = new LatLon(51.5136, 0.0);
+var pointOSGB36 = CoordTransform.convertWGS84toOSGB36(pointWGS84);
+```
 
 The available methods of the `CoordTransform` module object is listed below.
 
@@ -31,7 +35,7 @@ Convert latitude/longitude point in OSGB36 to WGS84.
 
 - __pointOSGB36__ (LatLon) latitude/longitude in OSGB36 reference frame
 
-```
+```js
 var pointOSGB36 = new LatLon(51.5136, 0.0);
 var pointWGS84 = CoordTransform.convertOSGB36toWGS84(pointOSGB36);
 // => 51°30′51″N, 000°00′06″W (as LatLon object)
@@ -44,7 +48,7 @@ Convert latitude/longitude point in WGS84 to OSGB36.
 
 - __pointWGS84__ (LatLon) latitude/longitude in WGS84 reference frame
 
-```
+```js
 var pointWGS84 = new LatLon(51.5136, 0.0);
 var pointOSGB36 = CoordTransform.convertWGS84toOSGB36(pointWGS84);
 // => 51°30′47″N, 000°00′06″E (as LatLon object)
