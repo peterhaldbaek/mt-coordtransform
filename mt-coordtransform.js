@@ -15,17 +15,17 @@
 
 
     // ellipse parameters
-    CoordTransform.ellipse = { 
+    CoordTransform.ellipse = {
       WGS84:        { a: 6378137,     b: 6356752.3142,   f: 1/298.257223563 },
       GRS80:        { a: 6378137,     b: 6356752.314140, f: 1/298.257222101 },
-      Airy1830:     { a: 6377563.396, b: 6356256.910,    f: 1/299.3249646   }, 
-      AiryModified: { a: 6377340.189, b: 6356034.448,    f: 1/299.32496     }, 
+      Airy1830:     { a: 6377563.396, b: 6356256.910,    f: 1/299.3249646   },
+      AiryModified: { a: 6377340.189, b: 6356034.448,    f: 1/299.32496     },
       Intl1924:     { a: 6378388.000, b: 6356911.946,    f: 1/297.0         }
     };
 
 
     // helmert transform parameters from WGS84 to other datums
-    CoordTransform.datumTransform = { 
+    CoordTransform.datumTransform = {
       toOSGB36:  { tx: -446.448,  ty:  125.157,   tz: -542.060,  // m
                    rx:   -0.1502, ry:   -0.2470,  rz:   -0.8421, // sec
                     s:   20.4894 },                              // ppm
@@ -36,11 +36,11 @@
                    rx:   -1.042,  ry:   -0.214,   rz:   -0.631,  // sec
                     s:   -8.150 } };                             // ppm
       // ED50: og.decc.gov.uk/en/olgs/cms/pons_and_cop/pons/pon4/pon4.aspx
-      // strictly, Ireland 1975 is from ETRF89: qv 
+      // strictly, Ireland 1975 is from ETRF89: qv
       // www.osi.ie/OSI/media/OSI/Content/Publications/transformations_booklet.pdf
       // www.ordnancesurvey.co.uk/oswebsite/gps/information/coordinatesystemsinfo/guidecontents/guide6.html#6.5
 
-                   
+
     /**
      * Convert lat/lon point in OSGB36 to WGS84
      *
@@ -90,11 +90,11 @@
 
       // -- 1: convert polar to cartesian coordinates (using ellipse 1)
 
-      var lat = point.lat().toRad(); 
-      var lon = point.lon().toRad(); 
+      var lat = toRad(point.lat());
+      var lon = toRad(point.lon());
 
       var a = e1.a, b = e1.b;
-      
+
       var sinPhi = Math.sin(lat);
       var cosPhi = Math.cos(lat);
       var sinLambda = Math.sin(lon);
@@ -110,12 +110,12 @@
 
 
       // -- 2: apply helmert transform using appropriate params
-      
+
       var tx = t.tx, ty = t.ty, tz = t.tz;
-      var rx = (t.rx/3600).toRad();  // normalise seconds to radians
-      var ry = (t.ry/3600).toRad();
-      var rz = (t.rz/3600).toRad();
-      var s1 = t.s/1e6 + 1;          // normalise ppm to (s+1)
+      var rx = toRad(t.rx/3600);  // normalise seconds to radians
+      var ry = toRad(t.ry/3600);
+      var rz = toRad(t.rz/3600);
+      var s1 = t.s/1e6 + 1;       // normalise ppm to (s+1)
 
       // apply transform
       var x2 = tx + x1*s1 - y1*rz + z1*ry;
@@ -139,7 +139,7 @@
       var lambda = Math.atan2(y2, x2);
       H = p/Math.cos(phi) - nu;
 
-      return new LatLon(phi.toDeg(), lambda.toDeg(), H);
+      return new LatLon(toDeg(phi), toDeg(lambda), H);
     };
 
     return CoordTransform;
@@ -152,6 +152,18 @@
       module.exports = wrapper;
   } else {
       root.CoordTransform = wrapper(LatLon);
+  }
+
+  // ---- helper functions for converting degrees/radians
+
+  /** Converts numeric degrees to radians */
+  function toRad(value) {
+    return value * Math.PI / 180;
+  }
+
+  /** Converts radians to numeric (signed) degrees */
+  function toDeg(value) {
+    return value * 180 / Math.PI;
   }
 
 })(this);
